@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <select id="getAll" resultType="User">
+        select id,phone,password,head_pic headPic,`name`,dharma,sex,
+                province,city,sign,status,create_date createDate
+                from user limit #{begin},#{rows}
+    </select>
+    <select id="getCount" resultType="Integer">
+
+       select count(id) from user
+
+ </select>
+    <select id="queryAll" resultType="User">
+        select id,phone,password,head_pic headPic,`name`,dharma,sex,
+                province,city,sign,status,create_date createDate
+                from user
+    </select>
+    <select id="getCountByDate" parameterType="Integer" resultType="Integer">
+        select count(id) from  user where datediff(NOW(),create_date)&lt;#{day}
+    </select>
+
+    <select id="queryUserByProvince" resultType="com.baizhi.DTO.UserDTO">
+        select province,count(id) amount from user group by province
+    </select>
+</mapper>

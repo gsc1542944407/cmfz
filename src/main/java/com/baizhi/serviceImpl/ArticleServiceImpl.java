@@ -1,0 +1,47 @@
+package com.baizhi.serviceImpl;
+
+import com.baizhi.dao.ArticleDao;
+import com.baizhi.entity.Article;
+import com.baizhi.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+
+@Service
+@Transactional
+public class ArticleServiceImpl implements ArticleService {
+    @Autowired
+    private ArticleDao articleDao;
+
+    @Override
+    public Map<String, Object> getAll(Integer page, Integer rows) {
+        Map<String, Object> map = new HashMap<>();
+        Integer begin = (page - 1) * rows;
+        List<Article> list = articleDao.getAll(begin, rows);
+        Integer count = articleDao.getCount();
+        Integer total = count % rows == 0 ? count / rows : count / rows + 1;
+        map.put("rows", list);   //rows   数据集合
+        map.put("total", total); //total  总页数
+        map.put("records", count);   //records 总条数
+        map.put("page", page);        //page   page
+        return map;
+    }
+
+    @Override
+    public String add(Article article) {
+        article.setId(UUID.randomUUID().toString());
+        article.setPublishDate(new Date());
+        String id = article.getId();
+        articleDao.add(article);
+        return id;
+    }
+
+    @Override
+    public void update(Article article) {
+        articleDao.update(article);
+    }
+
+
+}

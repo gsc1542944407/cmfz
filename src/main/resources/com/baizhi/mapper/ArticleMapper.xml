@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ArticleDao">
+    <select id="getAll" resultType="article">
+   select id,title ,author,content,publish_date publishDate ,status
+   from article limit #{begin},#{rows}
+</select>
+    <select id="getCount" resultType="Integer">
+       select count(id) from article
+ </select>
+    <insert id="add" parameterType="article">
+        insert into article (id,title ,author,content,publish_date,status)
+        values (#{id},#{title},#{author},#{content},#{publishDate},#{status})
+    </insert>
+    <update id="update" parameterType="article">
+        update article set title=#{title},author=#{author},content=#{content},status=#{status}
+        where id=#{id}
+    </update>
+</mapper>

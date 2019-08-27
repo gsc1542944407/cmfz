@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <select id="getAll" resultType="Album">
+   select id,title ,score,author,broadcast,`count`,brief,publish_date publishDate ,cover,status
+   from album limit #{begin},#{rows}
+</select>
+    <select id="getCount" resultType="Integer">
+
+       select count(id) from album
+
+ </select>
+    <insert id="add" parameterType="Album">
+        insert into album (id, title, score,author,broadcast,`count`,brief,publish_date,cover,status)
+        values(#{id},#{title},#{score},#{author},#{broadcast},#{count},#{brief},#{publishDate},#{cover},#{status})
+    </insert>
+    <update id="updateCover">
+        update album set cover=#{cover} where id=#{id}
+    </update>
+
+    <update id="update" parameterType="Album">
+        update album set title=#{title},author=#{author},broadcast=#{broadcast},brief=#{brief},
+               status=#{status} where id=#{id}
+    </update>
+</mapper>
