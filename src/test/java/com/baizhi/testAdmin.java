@@ -28,6 +28,9 @@ public class testAdmin {
         List<User> all = userDao.getAll(0, 5);
         for (User user : all) {
             System.out.println(user);
+             System.out.println(user); 
+            System.out.println(user);
+             System.out.println(user);
         }
 
     }
